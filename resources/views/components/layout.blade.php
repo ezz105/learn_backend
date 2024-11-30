@@ -23,7 +23,7 @@
         <x-sidebar />
 
         <div id="main-content" class="flex-1 gap-4 flex flex-col  transition-all duration-300 ease-in-out
-                w-full md:ml-64 md:w-[calc(100%-16rem)] bg-green-700 ">
+                w-full md:ml-64 md:w-[calc(100%-16rem)]">
             <x-navbar />
 
             <main class="p-6 space-y-6 overflow-y-auto overflow-x-hidden">

@@ -4,32 +4,32 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\User;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\dashboard\DashboardAuthController;
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
     // Login Routes
-    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/login', [DashboardAuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [DashboardAuthController::class, 'login']);
     
     // Registration Routes
-    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-    Route::post('/register', [AuthController::class, 'register']);
+    Route::get('/register', [DashboardAuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [DashboardAuthController::class, 'register']);
     
     // Password Reset Routes (to be implemented)
-    Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
-    Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
-    Route::get('/reset-password/{token}', [AuthController::class, 'showResetPassword'])->name('password.reset');
-    Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+    Route::get('/forgot-password', [DashboardAuthController::class, 'showForgotPassword'])->name('password.request');
+    Route::post('/forgot-password', [DashboardAuthController::class, 'sendResetLink'])->name('password.email');
+    Route::get('/reset-password/{token}', [DashboardAuthController::class, 'showResetPassword'])->name('password.reset');
+    Route::post('/reset-password', [DashboardAuthController::class, 'resetPassword'])->name('password.update');
 });
 
 // Authentication Required Routes
 Route::middleware('auth')->group(function () {
     // Logout Route
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [DashboardAuthController::class, 'logout'])->name('logout');
     
     // User Profile Route
-    Route::get('/user/profile', [AuthController::class, 'user'])->name('user.profile');
+    Route::get('/user/profile', [DashboardAuthController::class, 'user'])->name('user.profile');
     
     // Dashboard Home
     Route::get('/', function () {
