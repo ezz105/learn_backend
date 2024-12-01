@@ -44,6 +44,9 @@
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Joined At
                 </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                   status
+                </th>
                 <th scope="col"
                     class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
@@ -63,8 +66,9 @@
                         {{ $user->email }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 text-xs font-semibold text-white bg-indigo-600 rounded-full">
-                            {{ $user->role->name }}
+                        <span class="px-3 py-2 text-xs  text-white rounded-full font-bold
+                            {{ $user->role->name == 'admin' ? 'bg-blue-600' : ($user->role->name == 'customer' ? 'bg-purple-600' : 'bg-green-600') }}">
+                            {{ $user->role->name == 'admin' ? 'Admin' : ($user->role->name == 'customer' ? 'Customer' : 'Vendor') }}
                         </span>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -72,9 +76,16 @@
                             {{ $user->created_at->diffForHumans() }}
                         </span>
                     </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="text-sm text-white font-bold rounded-full px-3 py-2
+                            {{ $user->status == 'active' ? 'bg-green-600' : ($user->status == 'suspended' ? 'bg-yellow-600' : 'bg-red-600') }}">
+                            {{ $user->status }}
+                        </span>
+                    </td>
+                   
 
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex justify-end gap-2">
-                        <x-button type="secondary" href="#" icon="edit" size="small">
+                    <x-button type="secondary" href="#" icon="edit" size="small">
                             Edit
                         </x-button>
                         <x-button type="danger" href="#" icon="delete" size="small">
