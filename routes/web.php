@@ -5,6 +5,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\User;
 use App\Http\Controllers\dashboard\DashboardAuthController;
+use App\Http\Controllers\Dashboard\UserController;
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -67,10 +68,12 @@ Route::middleware('auth')->group(function () {
 
     // Users Routes
     Route::prefix('users')->group(function () {
-        Route::get('/', function () {
-            $users = User::with('role')->orderBy('name')->paginate(10);
-            return view('dashboard.users.index', compact('users'));
-        })->name('users.index');
+        Route::get('/', [UserController::class, 'index'])->name('users.index');
+        Route::get('/create', [UserController::class, 'create'])->name('users.create');
+        Route::post('/store', [UserController::class, 'store'])->name('users.store');
+        Route::get('/{user}', [UserController::class, 'show'])->name('users.show');
+        Route::get('/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('/{user}', [UserController::class, 'update'])->name('users.update');
     });
 
     // Categories Routes

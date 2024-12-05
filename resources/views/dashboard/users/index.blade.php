@@ -5,8 +5,8 @@
 
     <x-panel>
         <div>
-            <x-heading>Manage Products</x-heading>
-            <x-sub-heading>You can manage your products here</x-sub-heading>
+            <x-heading>Manage Users</x-heading>
+            <x-sub-heading>You can manage your Users here</x-sub-heading>
         </div>
 
         <div class="flex flex-col sm:flex-row gap-3">
@@ -17,7 +17,7 @@
             </x-button>
 
             <!-- Add Users Button -->
-            <x-button type="primary" href="#" icon="add">
+            <x-button type="primary" href="users.create" icon="add">
                 Add User
             </x-button>
         </div>
@@ -85,7 +85,7 @@
                    
 
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex justify-end gap-2">
-                    <x-button type="secondary" href="#" icon="edit" size="small">
+                        <x-button type="secondary" href="#" icon="edit" size="small">
                             Edit
                         </x-button>
                         <x-button type="danger" href="#" icon="delete" size="small">
