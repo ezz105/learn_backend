@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -25,9 +24,8 @@ class User extends Authenticatable
         'password',
         'phone_number',
         'role_id',
-        'status'
+        'status',
     ];
-
 
     /**
      * The attributes that should be hidden for serialization.
@@ -40,61 +38,93 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast to native types.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'status' => 'string',
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed', // Laravel 10+ supports native hashing
+        'status' => 'string',
+    ];
 
+    /**
+     * Relationship: Role
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
 
-
-    public function Userprofile()
+    /**
+     * Relationship: UserProfile
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function userProfile()
     {
         return $this->hasOne(UserProfile::class);
     }
 
+    /**
+     * Relationship: Addresses
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function addresses()
     {
         return $this->hasMany(Address::class);
     }
 
+    /**
+     * Relationship: Orders
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
 
+    /**
+     * Relationship: Cart
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function cart()
     {
         return $this->hasOne(Cart::class);
     }
+
+    /**
+     * Check if the user is an Admin
+     *
+     * @return bool
+     */
     public function isAdmin()
     {
-        // return $this->role && $this->role->name === 'admin';
-        return $this->role_id === 1;
-
+        return $this->role?->name === 'admin';
     }
 
+    /**
+     * Check if the user is a Vendor
+     *
+     * @return bool
+     */
     public function isVendor()
     {
-        // return $this->role && $this->role->name === 'vendor';
-        return $this->role_id === 2;
+        return $this->role?->name === 'vendor';
     }
 
+    /**
+     * Check if the user is a Customer
+     *
+     * @return bool
+     */
     public function isCustomer()
     {
-        // return $this->role && $this->role->name === 'customer';
-        return $this->role_id === 3;
+        return $this->role?->name === 'customer';
     }
-
 }

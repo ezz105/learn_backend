@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\User;
 use App\Http\Controllers\dashboard\DashboardAuthController;
 use App\Http\Controllers\Dashboard\UserController;
 
