@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -38,91 +39,54 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * Get the attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed', // Laravel 10+ supports native hashing
-        'status' => 'string',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'status' => 'string',
+        ];
+    }
 
-    /**
-     * Relationship: Role
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
 
-    /**
-     * Relationship: UserProfile
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function userProfile()
+
+    public function Userprofile()
     {
         return $this->hasOne(UserProfile::class);
     }
 
-    /**
-     * Relationship: Addresses
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function addresses()
     {
         return $this->hasMany(Address::class);
     }
 
-    /**
-     * Relationship: Orders
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
 
-    /**
-     * Relationship: Cart
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
     public function cart()
     {
         return $this->hasOne(Cart::class);
     }
-
-    /**
-     * Check if the user is an Admin
-     *
-     * @return bool
-     */
     public function isAdmin()
     {
         return $this->role?->name === 'admin';
     }
 
-    /**
-     * Check if the user is a Vendor
-     *
-     * @return bool
-     */
     public function isVendor()
     {
         return $this->role?->name === 'vendor';
     }
 
-    /**
-     * Check if the user is a Customer
-     *
-     * @return bool
-     */
     public function isCustomer()
     {
         return $this->role?->name === 'customer';

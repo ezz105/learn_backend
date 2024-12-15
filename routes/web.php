@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\User;
 use App\Http\Controllers\dashboard\DashboardAuthController;
 use App\Http\Controllers\Dashboard\UserController;
 
@@ -11,11 +12,11 @@ Route::middleware('guest')->group(function () {
     // Login Routes
     Route::get('/login', [DashboardAuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [DashboardAuthController::class, 'login']);
-    
+
     // Registration Routes
     Route::get('/register', [DashboardAuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [DashboardAuthController::class, 'register']);
-    
+
     // Password Reset Routes (to be implemented)
     Route::get('/forgot-password', [DashboardAuthController::class, 'showForgotPassword'])->name('password.request');
     Route::post('/forgot-password', [DashboardAuthController::class, 'sendResetLink'])->name('password.email');
@@ -27,10 +28,10 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     // Logout Route
     Route::post('/logout', [DashboardAuthController::class, 'logout'])->name('logout');
-    
+
     // User Profile Route
     Route::get('/user/profile', [DashboardAuthController::class, 'user'])->name('user.profile');
-    
+
     // Dashboard Home
     Route::get('/', function () {
         return view('dashboard.home');
