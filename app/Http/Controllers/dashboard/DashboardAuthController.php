@@ -47,7 +47,16 @@ class DashboardAuthController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'confirmed'],
+            'password' => [
+                'required', 
+                'string', 
+                'confirmed',
+                'min:8',              
+                'regex:/[A-Z]/',      
+                'regex:/[a-z]/',       
+                'regex:/[0-9]/',       
+                'regex:/[@$!%*?&]/',   
+            ],
             'role_id' => ['integer', 'exists:roles,id'],
         ]);
 

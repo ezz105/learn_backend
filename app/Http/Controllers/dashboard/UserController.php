@@ -34,11 +34,28 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed|min:8', // min:8 'password' => 'required|confirmed|min:8',
+            'password' => [
+                'required', 
+                'string', 
+                'confirmed',
+                'min:8',              
+                'regex:/[A-Z]/',      
+                'regex:/[a-z]/',       
+                'regex:/[0-9]/',       
+                'regex:/[@$!%*?&]/',   
+            ],
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:500',
             'role_id' => 'required|exists:roles,id', // Validate against roles table
             'status' => 'nullable|in:active,inactive', //'status' => 'required|in:active,inactive',
+            'password.required' => 'The password field is required.',
+            'password.string' => 'The password must be a string.',
+            'password.confirmed' => 'The password confirmation does not match.',
+            'password.min' => 'The password must be at least 8 characters long.',
+            'password.regex:/[A-Z]/' => 'The password must contain at least one uppercase letter.',
+            'password.regex:/[a-z]/' => 'The password must contain at least one lowercase letter.',
+            'password.regex:/[0-9]/' => 'The password must contain at least one number.',
+            'password.regex:/[@$!%*?&]/' => 'The password must contain at least one special character such as @$!%*?&.',
         ]);
 
         $user = User::create([
@@ -55,6 +72,7 @@ class UserController extends Controller
             ->route('users.index')
             ->with('success', 'User created successfully');
     }
+    
 
     public function show(User $user)
     {

@@ -10,10 +10,6 @@
         </div>
 
         <div class="flex flex-col sm:flex-row gap-3">
-            <!-- Add Export Button -->
-            <x-button type="secondary" href="#" icon="upload">
-                Export
-            </x-button>
 
             <!-- Add Users Button -->
             <x-button type="primary" href="users.create" icon="add">
