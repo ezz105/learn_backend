@@ -39,18 +39,18 @@
                 <x-form.input name="address" label="Address" placeholder="Enter address" />
             </div>
 
-            <!-- Status Selection -->
-            <div class="mt-6">
-                <x-form.select name="status" label="Status" class="p-2">
+            <!-- Status Selection hidden-->
+            <div class="mt-6 hidden">
+                <x-form.select name="status" label="Status" class="p-2 hidden">
                     <option value="active" selected>Active</option>
                     <option value="inactive">Inactive</option>
                 </x-form.select>
             </div>
 
             <!-- Submit Button -->
-            <!-- <div class="flex justify-end mt-6">
-                <button type="submit" class="btn btn-primary">Create User</button>
-            </div> -->
+            <div class="">
+                <button type="submit" class="btn btn-primary mt-6 rounded bg-blue-600 text-white w-25 p-2">Create User</button>
+            </div>
         </x-form.form>
     </x-panel>
 </x-layout>
