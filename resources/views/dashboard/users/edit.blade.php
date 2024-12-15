@@ -6,12 +6,14 @@
     <x-panel>
         <x-form.form action="{{ route('users.update', $user) }}" method="POST">
             @method('PUT')
+            @csrf
            
             <div>
                 <x-heading>Edit User: {{ $user->name }}</x-heading>
             </div>
             <hr />
-            <!-- Basic User Information -->
+
+            <!-- User Details -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- Name -->
                 <x-form.input name="name" label="Full Name" placeholder="Enter full name" 
@@ -33,17 +35,30 @@
                     label="Confirm New Password" 
                     placeholder="Confirm new password if changing" />
             </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+                <!-- Phone Number -->
+                <x-form.input name="phone" label="Phone Number" placeholder="Enter phone number" 
+                    value="{{ old('phone', $user->phone) }}" />
 
-            <!-- Role -->
+                <!-- Address -->
+                <x-form.input name="address" label="Address" placeholder="Enter address" 
+                    value="{{ old('address', $user->address) }}" />
+            </div>
+
+            <!-- Role and Status -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <x-form.select name="role_id" label="Role" required>
-                    <option value="1" {{ $user->role_id == 1 ? 'selected' : '' }}>Admin</option>
-                    <option value="2" {{ $user->role_id == 2 ? 'selected' : '' }}>Vendor</option>
-                    <option value="3" {{ $user->role_id == 3 ? 'selected' : '' }}>User</option>
+                <!-- Role -->
+                <x-form.select name="role_id" label="Role" required class="p-2">
+                    @foreach($roles as $role)
+                        <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>
+                            {{ $role->name }}
+                        </option>
+                    @endforeach
                 </x-form.select>
 
                 <!-- Status -->
-                <x-form.select name="status" label="Status" required>
+                <x-form.select name="status" label="Status" required class="p-2">
                     <option value="active" {{ $user->status == 'active' ? 'selected' : '' }}>Active</option>
                     <option value="inactive" {{ $user->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
                 </x-form.select>
@@ -51,7 +66,7 @@
 
             <!-- Submit Button -->
             <div class="flex justify-end mt-6">
-                <x-button type="primary">Update User</x-button>
+                <button class="btn btn-primary mt-6 rounded bg-blue-600 text-white w-25 p-2">Update User</button>
             </div>
         </x-form.form>
     </x-panel>
